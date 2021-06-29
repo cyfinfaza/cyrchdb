@@ -1,5 +1,9 @@
 # cyrchdb
-A database for web crawling written in Go.
+A database for web crawling written in Go. I was trying to crawl before using MongoDB, but it was far too resource intensive.
+This database is designed to be as lightweight as possible, implementing only the required features for a web crawling database.
+The in-memory cache it uses implements a sorted list of CRC64 hashes, which can be binary searched in fractions of a millisecond,
+even with hundreds of millions of entries. This allows for almost effortles upserts (inserting the URLs only if they don't already exist), 
+which is what I believe MongoDB was struggling with when I was using it for web crawling.
 ## Getting started
 Assuming you have Go installed, simply `go build .` or `go run .` from within the folder. To stop the database, press enter.
 This will save the cache before exiting. If you fail to exit safely, you will have to run `cyrchdb cache-regen` to regenerate the cache.
